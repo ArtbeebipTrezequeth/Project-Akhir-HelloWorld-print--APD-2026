@@ -1,6 +1,6 @@
 from menu_login import admin, pengguna
 import os
-import inquirer
+import inqu
 
 def MenuUtama():
     os.system("cls")
