@@ -1,21 +1,58 @@
-def sistem_login(user, password):
-    # TODO: Implementasi oleh Hanif
-    pass
-def Create(daftar_permen):
-    # TODO: Implementasi oleh Cinta
-    pass
-def Read(nama_permen):
-    # TODO: Implementasi oleh Mulan
-    pass
-def Update(daftar_permen, nama_permen, harga_baru):
-    # TODO: Implementasi oleh Artbeebip
-    pass
-def Delete(daftar_permen, nama_permen):
-    # TODO: Implementasi oleh Hanif
-    pass
-def Bayar(daftar_permen, nama_permen, jumlah):
-    # TODO: Implementasi oleh Cinta
-    pass
-def Keluar():
-    # TODO: Implementasi oleh Mulan
-    pass
+# Sistem Login TODO: Implementasi oleh Hanif
+from login import admin, pengguna
+import os
+import inquirer
+
+def MenuUtama():
+    os.system("cls")
+    print("============ Selamat datang di toko permen =============")
+    pilihan = [
+        inquirer.List(
+            "login",
+            message="Login Sebagai",
+            choices=["admin", "pengguna"],
+        ),
+    ]
+    logins = inquirer.prompt(pilihan)
+
+    if(logins["login"]) == "admin":
+        logmin()
+        os.system("cls")
+    elif(logins["login"]) == "pengguna":
+        pengguna()
+        os.system("cls")
+
+def logmin():
+    os.system("cls")
+    try:
+        print("=========================")
+        user = input("Masukkan Username: ")
+        password = input("Masukkan Password: ")
+        print("=========================")
+        if not ((user == "a" and password == "a")):
+            raise ValueError
+    except ValueError:
+        os.system("cls")
+        logcoba()
+
+    else:
+        os.system("cls")
+        if (user == "a" and password == "a"):
+            admin()
+
+def logcoba():
+    pilihan = [
+        inquirer.List(
+            "pilih",
+            message="Login Gagal",
+            choices=["coba lagi", "kembali ke menu awal"],
+        ),
+    ]
+    step = inquirer.prompt(pilihan)
+    os.system("cls")
+    if (step["pilih"]) == "coba lagi":
+            logmin()
+    elif (step["pilih"]) == "kembali ke menu awal":
+            MenuUtama() 
+    
+MenuUtama()
