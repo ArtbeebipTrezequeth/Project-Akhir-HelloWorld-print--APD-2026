@@ -1,4 +1,5 @@
-from menu_login import admin, pengguna
+from login import admin, pengguna
+from data_awal import Nama_admin, Pw_admin
 import os
 import inquirer
 
@@ -25,10 +26,10 @@ def logmin():
     os.system("cls")
     try:
         print("=========================")
-        user = input("Masukkan Username: ")
+        user = input("Masukkan Username: ").strip()
         password = input("Masukkan Password: ")
         print("=========================")
-        if not ((user == "a" and password == "a")):
+        if not ((user in Nama_admin and password == Pw_admin)):
             raise ValueError
     except ValueError:
         os.system("cls")
@@ -36,7 +37,7 @@ def logmin():
 
     else:
         os.system("cls")
-        if (user == "a" and password == "a"):
+        if (user in Nama_admin and password == Pw_admin):
             admin()
 
 def logcoba():
