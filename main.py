@@ -72,7 +72,6 @@ shopping_list = []
 
 # Menu Login
 from login import admin, pengguna
-from data_awal import Nama_admin, Pw_admin
 import os
 import inquirer
 
@@ -213,7 +212,6 @@ def pengguna():
 
 # Admin Create
 import os
-from data_awal import jenis_permen, katalog_permen
 
 def create_admin():
     os.system("cls")
@@ -269,7 +267,6 @@ def create_admin():
 
 # Admin Read
 import os
-from data_awal import jenis_permen, katalog_permen
 
 def read_admin():
     os.system("cls")
@@ -297,7 +294,6 @@ def read_admin():
 
 # Admin Update
 import os
-from data_awal import katalog_permen
 
 def update_admin():
     os.system("cls")
@@ -325,7 +321,6 @@ def update_admin():
 
 # Admin Delete
 import os
-from data_awal import jenis_permen, katalog_permen
 
 def delete_admin():
     os.system("cls")
@@ -387,7 +382,6 @@ def keluar_admin():
 
 # Pelanggan Create
 import os
-from data_awal import jenis_permen, katalog_permen, shopping_list
 
 def create_pelanggan():
     os.system("cls")
@@ -441,7 +435,6 @@ def create_pelanggan():
 
 # Pelanggan Read
 import os
-from data_awal import katalog_permen, shopping_list
 
 def read_pelanggan():
     os.system("cls")
@@ -485,7 +478,6 @@ def read_pelanggan():
 
 # Pelanggan Update
 import os
-from data_awal import jenis_permen, katalog_permen, shopping_list
 
 def update_pelanggan():
     os.system("cls")
@@ -540,7 +532,6 @@ def update_pelanggan():
 
 # Pelanggan Delete
 import os
-from data_awal import katalog_permen, shopping_list
 
 def delete_pelanggan():
     os.system("cls")
@@ -578,7 +569,6 @@ def delete_pelanggan():
 # Pelanggan Bayar
 import os
 from prettytable import PrettyTable
-from data_awal import katalog_permen, shopping_list
 
 def bayar_pelanggan():
     os.system("cls")
