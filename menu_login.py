@@ -1,4 +1,4 @@
-from login import admin, pengguna
+from tampilan_menu import admin, pengguna
 from data_awal import Nama_admin, Pw_admin
 import os
 import sys
