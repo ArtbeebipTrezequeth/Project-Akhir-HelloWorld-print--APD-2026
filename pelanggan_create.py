@@ -12,12 +12,25 @@ def create_pelanggan():
     for i, item in enumerate(katalog_permen, start=1):
         status = "TERSEDIA" if item["stok"] > 0 else "HABIS"
         print(f"{i}. {item['nama']} | Rp{item['harga']:,}".replace(",", ".") + f"/pcs | Stok: {item['stok']} | {status}")
+    print("0. Keluar / Batal")
 
-    idx = int(input("Pilih nomor menu: ")) - 1
-    if not (0 <= idx < len(katalog_permen)):
-        print("Nomor menu tidak valid.")
-        input("\nTekan Enter untuk lanjut...")
-        return
+    while True:
+        raw_idx = input("Pilih nomor menu: ").strip()
+        if not raw_idx:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            no_menu = int(raw_idx)
+            if no_menu == 0:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if 1 <= no_menu <= len(katalog_permen):
+                idx = no_menu - 1
+                break
+            print("Nomor menu tidak valid.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
 
     item = katalog_permen[idx]
     if item["stok"] <= 0:
@@ -28,18 +41,42 @@ def create_pelanggan():
     varians = jenis_permen.get(item["jenis"], [item["varian"]])
     for i, v in enumerate(varians, start=1):
         print(f"{i}. {v}")
-    idx_v = int(input("Pilih nomor varian rasa: ")) - 1
-    if not (0 <= idx_v < len(varians)):
-        print("Nomor varian tidak valid.")
-        input("\nTekan Enter untuk lanjut...")
-        return
+    print("0. Batal")
 
-    varian_dipilih = varians[idx_v]
-    qty = int(input("Masukkan jumlah beli: "))
-    if qty <= 0 or qty > item["stok"]:
-        print("Jumlah beli tidak valid atau melebihi stok.")
-        input("\nTekan Enter untuk lanjut...")
-        return
+    while True:
+        raw_v = input("Pilih nomor varian rasa: ").strip()
+        if not raw_v:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            no_v = int(raw_v)
+            if no_v == 0:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if 1 <= no_v <= len(varians):
+                varian_dipilih = varians[no_v - 1]
+                break
+            print("Nomor varian tidak valid.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    while True:
+        raw_qty = input(f"Masukkan jumlah beli (maks {item['stok']}, 0 untuk batal): ").strip()
+        if not raw_qty:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            qty = int(raw_qty)
+            if qty == 0:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if 1 <= qty <= item["stok"]:
+                break
+            print(f"Jumlah beli harus antara 1 sampai {item['stok']}.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
 
     shopping_list.append({
         "menu_index": idx,

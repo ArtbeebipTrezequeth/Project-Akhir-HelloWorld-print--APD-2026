@@ -4,6 +4,27 @@ from data_awal import jenis_permen, katalog_permen
 def read_admin():
     os.system("cls")
     print("=== ADMIN - READ ===")
+    print("1. Tampilkan Seluruh Menu & Variasi")
+    print("0. Keluar / Kembali")
+
+    while True:
+        raw = input("Pilih (1/0): ").strip()
+        if not raw:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            pilih = int(raw)
+            if pilih in (1, 0):
+                break
+            print("Pilihan harus 1 atau 0.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    if pilih == 0:
+        print("Keluar dari Read Admin.")
+        input("\nTekan Enter untuk lanjut...")
+        return
+
     if not katalog_permen:
         print("Belum ada data menu permen.")
     else:

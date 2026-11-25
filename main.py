@@ -145,22 +145,22 @@ def admin():
                 "aksi",
                 message="Menu Admin",
                 choices=[
-                    "create",
-                    "read",
-                    "update",
-                    "delete",
+                    "Tambah Menu",
+                    "Lihat Data Menu",
+                    "Kelola Stok",
+                    "Hapus Menu",
                     "keluar",
                 ],
             )
         ]
         pilih = inquirer.prompt(menu)
-        if pilih["aksi"] == "create":
+        if pilih["aksi"] == "Tambah Menu":
             create_admin()
-        elif pilih["aksi"] == "read":
+        elif pilih["aksi"] == "Lihat Data Menu":
             read_admin()
-        elif pilih["aksi"] == "update":
+        elif pilih["aksi"] == "Kelola Stok":
             update_admin()
-        elif pilih["aksi"] == "delete":
+        elif pilih["aksi"] == "Hapus Menu":
             delete_admin()
         elif pilih["aksi"] == "keluar":
             jalan = keluar_admin()
@@ -174,25 +174,25 @@ def pengguna():
                 "aksi",
                 message="Menu Pelanggan",
                 choices=[
-                    "create",
-                    "read",
-                    "update",
-                    "delete",
-                    "bayar",
+                    "Tambah Belanjaan",
+                    "Lihat Belanjaan",
+                    "Kelola Belanjaan",
+                    "Hapus Belanjaan",
+                    "Bayar",
                     "keluar",
                 ],
             )
         ]
         pilih = inquirer.prompt(menu)
-        if pilih["aksi"] == "create":
+        if pilih["aksi"] == "Tambah Belanjaan":
             create_pelanggan()
-        elif pilih["aksi"] == "read":
+        elif pilih["aksi"] == "Lihat Belanjaan":
             read_pelanggan()
-        elif pilih["aksi"] == "update":
+        elif pilih["aksi"] == "Kelola Belanjaan":
             update_pelanggan()
-        elif pilih["aksi"] == "delete":
+        elif pilih["aksi"] == "Hapus Belanjaan":
             delete_pelanggan()
-        elif pilih["aksi"] == "bayar":
+        elif pilih["aksi"] == "Bayar":
             bayar_pelanggan()
         elif pilih["aksi"] == "keluar":
             jalan = keluar_pelanggan()
@@ -375,7 +375,7 @@ import os
 
 def read_admin():
     os.system("cls")
-    print("=== ADMIN - READ ===")
+    print("=== ADMIN - LIHAT DATA MENU ===")
     print("1. Tampilkan Seluruh Menu & Variasi")
     print("0. Keluar / Kembali")
 
@@ -393,7 +393,7 @@ def read_admin():
             print("Input harus berupa angka, bukan huruf.")
 
     if pilih == 0:
-        print("Keluar dari Read Admin.")
+        print("Keluar dari Lihat Data Menu Admin.")
         input("\nTekan Enter untuk lanjut...")
         return
 
@@ -423,7 +423,7 @@ import os
 
 def update_admin():
     os.system("cls")
-    print("=== ADMIN - UPDATE STOK ===")
+    print("=== ADMIN - KELOLA STOK ===")
     if not katalog_permen:
         print("Belum ada menu untuk diupdate.")
         input("\nTekan Enter untuk lanjut...")
@@ -480,7 +480,7 @@ import os
 
 def delete_admin():
     os.system("cls")
-    print("=== ADMIN - DELETE ===")
+    print("=== ADMIN - HAPUS MENU ===")
     print("1. Hapus Salah Satu Menu")
     print("2. Hapus Salah Satu Variasi Rasa")
     print("3. Hapus Semua Menu")
@@ -643,7 +643,7 @@ import os
 
 def create_pelanggan():
     os.system("cls")
-    print("=== PELANGGAN - CREATE (SHOPPING LIST) ===")
+    print("=== PELANGGAN - TAMBAH BELANJAAN ===")
     if not katalog_permen:
         print("Menu toko kosong.")
         input("\nTekan Enter untuk lanjut...")
@@ -733,7 +733,7 @@ import os
 
 def read_pelanggan():
     os.system("cls")
-    print("=== PELANGGAN - READ ===")
+    print("=== PELANGGAN - LIHAT BELANJAAN ===")
     print("1. Lihat Menu Toko Permen")
     print("2. Lihat Isi Belanjaan Saat Ini")
     print("0. Keluar / Kembali")
@@ -791,9 +791,9 @@ import os
 
 def update_pelanggan():
     os.system("cls")
-    print("=== PELANGGAN - UPDATE SHOPPING LIST ===")
+    print("=== PELANGGAN - KELOLA BELANJAAN ===")
     if not shopping_list:
-        print("Shopping list kosong.")
+        print("Belanjaan kosong.")
         input("\nTekan Enter untuk lanjut...")
         return
 
@@ -899,9 +899,9 @@ import os
 
 def delete_pelanggan():
     os.system("cls")
-    print("=== PELANGGAN - DELETE SHOPPING LIST ===")
+    print("=== PELANGGAN - HAPUS BELANJAAN ===")
     if not shopping_list:
-        print("Shopping list kosong.")
+        print("Belanjaan kosong.")
         input("\nTekan Enter untuk lanjut...")
         return
 
@@ -994,7 +994,7 @@ def bayar_pelanggan():
     os.system("cls")
     print("=== PELANGGAN - BAYAR ===")
     if not shopping_list:
-        print("Shopping list masih kosong, tidak ada yang dibayar.")
+        print("Belanjaan masih kosong, tidak ada yang dibayar.")
         input("\nTekan Enter untuk lanjut...")
         return
 

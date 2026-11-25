@@ -35,7 +35,26 @@ def bayar_pelanggan():
 
     print(tabel)
     print("Total yang harus dibayar: Rp" + f"{total:,}".replace(",", "."))
-    uang = int(input("Masukkan jumlah uang bayar: "))
+    print("Ketik 0 untuk batal bayar.")
+
+    while True:
+        raw_uang = input("Masukkan jumlah uang bayar: ").strip()
+        if not raw_uang:
+            print("Jumlah uang tidak boleh kosong.")
+            continue
+        try:
+            uang = int(raw_uang)
+            if uang == 0:
+                print("Pembayaran dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if uang < 0:
+                print("Jumlah uang tidak boleh negatif.")
+                continue
+            break
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
     if uang < total:
         print("Uang tidak mencukupi.")
     else:

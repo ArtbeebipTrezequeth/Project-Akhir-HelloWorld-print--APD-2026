@@ -6,9 +6,27 @@ def read_pelanggan():
     print("=== PELANGGAN - READ ===")
     print("1. Lihat Menu Toko Permen")
     print("2. Lihat Isi Belanjaan Saat Ini")
-    pilih = input("Pilih (1/2): ").strip()
+    print("0. Keluar / Kembali")
 
-    if pilih == "1":
+    while True:
+        raw_pilih = input("Pilih (1/2/0): ").strip()
+        if not raw_pilih:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            pilih = int(raw_pilih)
+            if pilih in (1, 2, 0):
+                break
+            print("Pilihan harus 1, 2, atau 0.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    if pilih == 0:
+        print("Keluar dari Read Pelanggan.")
+        input("\nTekan Enter untuk lanjut...")
+        return
+
+    if pilih == 1:
         for no, item in enumerate(katalog_permen, start=1):
             status = "TERSEDIA" if item["stok"] > 0 else "HABIS"
             print(f"\n[Menu ke-{no}]")
@@ -19,7 +37,7 @@ def read_pelanggan():
             print(f"5. Varian Rasa: {item['varian']}")
             print(f"6. Status: {status}")
 
-    elif pilih == "2":
+    elif pilih == 2:
         if not shopping_list:
             print("Shopping list masih kosong.")
         else:
@@ -33,8 +51,5 @@ def read_pelanggan():
                     f"Qty: {entry['qty']} | Subtotal: Rp{subtotal:,}".replace(",", ".")
                 )
             print("Total Belanja: Rp" + f"{total:,}".replace(",", "."))
-
-    else:
-        print("Pilihan tidak valid.")
 
     input("\nTekan Enter untuk lanjut...")

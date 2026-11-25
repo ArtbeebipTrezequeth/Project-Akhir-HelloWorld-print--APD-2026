@@ -12,13 +12,43 @@ def update_admin():
     for i, item in enumerate(katalog_permen, start=1):
         status = "TERSEDIA" if item["stok"] > 0 else "HABIS"
         print(f"{i}. {item['nama']} | Stok: {item['stok']} pcs | Status: {status}")
+    print("0. Keluar / Batal")
 
-    idx = int(input("Pilih nomor menu yang ingin diupdate stoknya: ")) - 1
-    if 0 <= idx < len(katalog_permen):
-        stok_baru = int(input("Masukkan jumlah stok baru: "))
-        katalog_permen[idx]["stok"] = stok_baru
-        print("Stok berhasil diupdate.")
-    else:
-        print("Nomor menu tidak ditemukan.")
+    while True:
+        raw_idx = input("Pilih nomor menu yang ingin diupdate stoknya: ").strip()
+        if not raw_idx:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            no_menu = int(raw_idx)
+            if no_menu == 0:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if 1 <= no_menu <= len(katalog_permen):
+                idx = no_menu - 1
+                break
+            print("Nomor menu tidak ditemukan.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
 
+    while True:
+        raw_stok = input("Masukkan jumlah stok baru (-1 untuk batal): ").strip()
+        if not raw_stok:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            stok_baru = int(raw_stok)
+            if stok_baru == -1:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if stok_baru >= 0:
+                break
+            print("Stok tidak boleh negatif.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    katalog_permen[idx]["stok"] = stok_baru
+    print("Stok berhasil diupdate.")
     input("\nTekan Enter untuk lanjut...")
