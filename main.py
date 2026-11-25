@@ -82,15 +82,15 @@ def MenuUtama():
         inquirer.List(
             "login",
             message="Login Sebagai",
-            choices=["admin", "pengguna"],
+            choices=["admin", "pelanggan"],
         ),
     ]
     logins = inquirer.prompt(pilihan)
 
-    if(logins["login"]) == "admin":
+    if (logins["login"]) == "admin":
         logmin()
         os.system("cls")
-    elif(logins["login"]) == "pengguna":
+    elif (logins["login"]) == "pelanggan":
         pengguna()
         os.system("cls")
 
@@ -123,9 +123,9 @@ def logcoba():
     step = inquirer.prompt(pilihan)
     os.system("cls")
     if (step["pilih"]) == "coba lagi":
-            logmin()
+        logmin()
     elif (step["pilih"]) == "kembali ke menu awal":
-            MenuUtama()
+        MenuUtama()
 
 if __name__ == "__main__":
     MenuUtama()
@@ -135,17 +135,6 @@ if __name__ == "__main__":
 # Login
 import os
 import inquirer
-from admin_create import create_admin
-from admin_read import read_admin
-from admin_update import update_admin
-from admin_delete import delete_admin
-from admin_keluar import keluar_admin
-from pelanggan_create import create_pelanggan
-from pelanggan_read import read_pelanggan
-from pelanggan_update import update_pelanggan
-from pelanggan_delete import delete_pelanggan
-from pelanggan_bayar import bayar_pelanggan
-from pelanggan_keluar import keluar_pelanggan
 
 def admin():
     jalan = True
@@ -209,33 +198,124 @@ def pengguna():
             jalan = keluar_pelanggan()
 
 
-
-# Admin Create
+# Admin Tambah
 import os
 
 def create_admin():
     os.system("cls")
-    print("=== ADMIN - CREATE ===")
+    print("=== ADMIN - TAMBAH ===")
     print("1. Tambah Menu Pilihan Baru")
     print("2. Tambah Jenis Variasi Rasa")
-    pilih = input("Pilih (1/2): ").strip()
+    print("0. Keluar / Batal")
 
-    if pilih == "1":
-        nama = input("Nama Permen: ").strip()
-        harga = int(input("Harga Permen (angka): "))
-        stok = int(input("Jumlah Stok: "))
+    while True:
+        raw_pilih = input("Pilih (1/2/0): ").strip()
+        if not raw_pilih:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            pilih = int(raw_pilih)
+            if pilih in (1, 2, 0):
+                break
+            print("Pilihan harus 1, 2, atau 0.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    if pilih == 0:
+        print("Tindakan dibatalkan.")
+        input("\nTekan Enter untuk lanjut...")
+        return
+
+    if pilih == 1:
+        while True:
+            nama = input("Nama Permen (atau ketik 0 untuk batal): ").strip()
+            if nama == "0":
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if nama:
+                break
+            print("Nama permen tidak boleh kosong.")
+
+        while True:
+            raw_harga = input("Harga Permen (angka, 0 untuk batal): ").strip()
+            if not raw_harga:
+                print("Harga tidak boleh kosong.")
+                continue
+            try:
+                harga = int(raw_harga)
+                if harga == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if harga > 0:
+                    break
+                print("Harga harus lebih dari 0.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
+
+        while True:
+            raw_stok = input("Jumlah Stok (angka, -1 untuk batal): ").strip()
+            if not raw_stok:
+                print("Stok tidak boleh kosong.")
+                continue
+            try:
+                stok = int(raw_stok)
+                if stok == -1:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if stok >= 0:
+                    break
+                print("Stok tidak boleh negatif.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
 
         daftar_jenis = list(jenis_permen.keys())
         for i, j in enumerate(daftar_jenis, start=1):
             print(f"{i}. {j}")
-        idx_j = int(input("Pilih nomor jenis permen: ")) - 1
-        jenis_dipilih = daftar_jenis[idx_j]
+        print("0. Batal")
+
+        while True:
+            raw_j = input("Pilih nomor jenis permen: ").strip()
+            if not raw_j:
+                print("Pilihan tidak boleh kosong.")
+                continue
+            try:
+                no_j = int(raw_j)
+                if no_j == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if 1 <= no_j <= len(daftar_jenis):
+                    jenis_dipilih = daftar_jenis[no_j - 1]
+                    break
+                print("Nomor jenis tidak valid.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
 
         daftar_varian = jenis_permen[jenis_dipilih]
         for i, v in enumerate(daftar_varian, start=1):
             print(f"{i}. {v}")
-        idx_v = int(input("Pilih nomor varian rasa: ")) - 1
-        varian_dipilih = daftar_varian[idx_v]
+        print("0. Batal")
+
+        while True:
+            raw_v = input("Pilih nomor varian rasa: ").strip()
+            if not raw_v:
+                print("Pilihan tidak boleh kosong.")
+                continue
+            try:
+                no_v = int(raw_v)
+                if no_v == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if 1 <= no_v <= len(daftar_varian):
+                    varian_dipilih = daftar_varian[no_v - 1]
+                    break
+                print("Nomor varian tidak valid.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
 
         katalog_permen.append({
             "nama": nama,
@@ -246,20 +326,45 @@ def create_admin():
         })
         print("Menu berhasil ditambahkan.")
 
-    elif pilih == "2":
+    elif pilih == 2:
         daftar_jenis = list(jenis_permen.keys())
         for i, j in enumerate(daftar_jenis, start=1):
             print(f"{i}. {j} -> {', '.join(jenis_permen[j])}")
-        idx_j = int(input("Pilih nomor jenis permen: ")) - 1
-        jenis_dipilih = daftar_jenis[idx_j]
-        varian_baru = input("Nama varian rasa baru: ").strip()
+        print("0. Batal")
+
+        while True:
+            raw_j = input("Pilih nomor jenis permen: ").strip()
+            if not raw_j:
+                print("Pilihan tidak boleh kosong.")
+                continue
+            try:
+                no_j = int(raw_j)
+                if no_j == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if 1 <= no_j <= len(daftar_jenis):
+                    jenis_dipilih = daftar_jenis[no_j - 1]
+                    break
+                print("Nomor jenis tidak valid.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
+
+        while True:
+            varian_baru = input("Nama varian rasa baru (atau 0 untuk batal): ").strip()
+            if varian_baru == "0":
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if varian_baru:
+                break
+            print("Nama varian tidak boleh kosong.")
+
         if varian_baru not in jenis_permen[jenis_dipilih]:
             jenis_permen[jenis_dipilih].append(varian_baru)
             print("Variasi rasa berhasil ditambahkan.")
         else:
             print("Variasi rasa sudah ada.")
-    else:
-        print("Pilihan tidak valid.")
 
     input("\nTekan Enter untuk lanjut...")
 
@@ -271,6 +376,27 @@ import os
 def read_admin():
     os.system("cls")
     print("=== ADMIN - READ ===")
+    print("1. Tampilkan Seluruh Menu & Variasi")
+    print("0. Keluar / Kembali")
+
+    while True:
+        raw = input("Pilih (1/0): ").strip()
+        if not raw:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            pilih = int(raw)
+            if pilih in (1, 0):
+                break
+            print("Pilihan harus 1 atau 0.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    if pilih == 0:
+        print("Keluar dari Read Admin.")
+        input("\nTekan Enter untuk lanjut...")
+        return
+
     if not katalog_permen:
         print("Belum ada data menu permen.")
     else:
@@ -306,15 +432,45 @@ def update_admin():
     for i, item in enumerate(katalog_permen, start=1):
         status = "TERSEDIA" if item["stok"] > 0 else "HABIS"
         print(f"{i}. {item['nama']} | Stok: {item['stok']} pcs | Status: {status}")
+    print("0. Keluar / Batal")
 
-    idx = int(input("Pilih nomor menu yang ingin diupdate stoknya: ")) - 1
-    if 0 <= idx < len(katalog_permen):
-        stok_baru = int(input("Masukkan jumlah stok baru: "))
-        katalog_permen[idx]["stok"] = stok_baru
-        print("Stok berhasil diupdate.")
-    else:
-        print("Nomor menu tidak ditemukan.")
+    while True:
+        raw_idx = input("Pilih nomor menu yang ingin diupdate stoknya: ").strip()
+        if not raw_idx:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            no_menu = int(raw_idx)
+            if no_menu == 0:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if 1 <= no_menu <= len(katalog_permen):
+                idx = no_menu - 1
+                break
+            print("Nomor menu tidak ditemukan.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
 
+    while True:
+        raw_stok = input("Masukkan jumlah stok baru (-1 untuk batal): ").strip()
+        if not raw_stok:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            stok_baru = int(raw_stok)
+            if stok_baru == -1:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if stok_baru >= 0:
+                break
+            print("Stok tidak boleh negatif.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    katalog_permen[idx]["stok"] = stok_baru
+    print("Stok berhasil diupdate.")
     input("\nTekan Enter untuk lanjut...")
 
 
@@ -328,43 +484,125 @@ def delete_admin():
     print("1. Hapus Salah Satu Menu")
     print("2. Hapus Salah Satu Variasi Rasa")
     print("3. Hapus Semua Menu")
-    pilih = input("Pilih (1/2/3): ").strip()
+    print("0. Keluar / Batal")
 
-    if pilih == "1":
+    while True:
+        raw_pilih = input("Pilih (1/2/3/0): ").strip()
+        if not raw_pilih:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            pilih = int(raw_pilih)
+            if pilih in (1, 2, 3, 0):
+                break
+            print("Pilihan harus 1, 2, 3, atau 0.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    if pilih == 0:
+        print("Tindakan dibatalkan.")
+        input("\nTekan Enter untuk lanjut...")
+        return
+
+    if pilih == 1:
+        if not katalog_permen:
+            print("Katalog menu sudah kosong.")
+            input("\nTekan Enter untuk lanjut...")
+            return
         for i, item in enumerate(katalog_permen, start=1):
             print(f"{i}. {item['nama']} ({item['varian']})")
-        idx = int(input("Pilih nomor menu yang dihapus: ")) - 1
-        if 0 <= idx < len(katalog_permen):
-            katalog_permen.pop(idx)
-            print("Menu berhasil dihapus.")
-        else:
-            print("Nomor menu tidak valid.")
+        print("0. Batal")
 
-    elif pilih == "2":
+        while True:
+            raw_no = input("Pilih nomor menu yang dihapus: ").strip()
+            if not raw_no:
+                print("Input tidak boleh kosong.")
+                continue
+            try:
+                no_menu = int(raw_no)
+                if no_menu == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if 1 <= no_menu <= len(katalog_permen):
+                    katalog_permen.pop(no_menu - 1)
+                    print("Menu berhasil dihapus.")
+                    break
+                print("Nomor menu tidak valid.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
+
+    elif pilih == 2:
         daftar_jenis = list(jenis_permen.keys())
         for i, j in enumerate(daftar_jenis, start=1):
             print(f"{i}. {j}: {', '.join(jenis_permen[j])}")
-        idx_j = int(input("Pilih nomor jenis permen: ")) - 1
-        if 0 <= idx_j < len(daftar_jenis):
-            jenis_dipilih = daftar_jenis[idx_j]
-            varians = jenis_permen[jenis_dipilih]
-            for i, v in enumerate(varians, start=1):
-                print(f"{i}. {v}")
-            idx_v = int(input("Pilih nomor varian yang dihapus: ")) - 1
-            if 0 <= idx_v < len(varians):
-                varians.pop(idx_v)
-                print("Variasi rasa berhasil dihapus.")
-            else:
+        print("0. Batal")
+
+        while True:
+            raw_j = input("Pilih nomor jenis permen: ").strip()
+            if not raw_j:
+                print("Input tidak boleh kosong.")
+                continue
+            try:
+                no_j = int(raw_j)
+                if no_j == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if 1 <= no_j <= len(daftar_jenis):
+                    jenis_dipilih = daftar_jenis[no_j - 1]
+                    break
+                print("Nomor jenis tidak valid.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
+
+        varians = jenis_permen[jenis_dipilih]
+        if not varians:
+            print("Tidak ada varian pada jenis ini.")
+            input("\nTekan Enter untuk lanjut...")
+            return
+
+        for i, v in enumerate(varians, start=1):
+            print(f"{i}. {v}")
+        print("0. Batal")
+
+        while True:
+            raw_v = input("Pilih nomor varian yang dihapus: ").strip()
+            if not raw_v:
+                print("Input tidak boleh kosong.")
+                continue
+            try:
+                no_v = int(raw_v)
+                if no_v == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if 1 <= no_v <= len(varians):
+                    varians.pop(no_v - 1)
+                    print("Variasi rasa berhasil dihapus.")
+                    break
                 print("Nomor varian tidak valid.")
-        else:
-            print("Nomor jenis tidak valid.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
 
-    elif pilih == "3":
-        katalog_permen.clear()
-        print("Semua menu berhasil dihapus.")
-
-    else:
-        print("Pilihan tidak valid.")
+    elif pilih == 3:
+        while True:
+            raw_konf = input("Ketik 1 untuk konfirmasi hapus SEMUA menu atau 0 untuk batal: ").strip()
+            if not raw_konf:
+                print("Input tidak boleh kosong.")
+                continue
+            try:
+                konf = int(raw_konf)
+                if konf == 0:
+                    print("Penghapusan semua menu dibatalkan.")
+                    break
+                if konf == 1:
+                    katalog_permen.clear()
+                    print("Semua menu berhasil dihapus.")
+                    break
+                print("Masukkan 1 atau 0.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
 
     input("\nTekan Enter untuk lanjut...")
 
@@ -372,10 +610,30 @@ def delete_admin():
 
 # Admin Keluar
 import os
+import sys
+import inquirer
 
 def keluar_admin():
     os.system("cls")
-    print("Keluar dari menu admin...")
+    pilihan = [
+        inquirer.List(
+            "keluar",
+            message="Keluar Admin - Pilih tujuan",
+            choices=[
+                "kembali ke pemilihan admin/pelanggan",
+                "keluar dari sistem",
+            ],
+        ),
+    ]
+    pilih = inquirer.prompt(pilihan)
+
+    if pilih["keluar"] == "keluar dari sistem":
+        os.system("cls")
+        print("Terima kasih telah berkunjung ke toko permen!")
+        sys.exit()
+
+    os.system("cls")
+    print("Kembali ke pemilihan admin/pelanggan...")
     return False
 
 
@@ -394,12 +652,25 @@ def create_pelanggan():
     for i, item in enumerate(katalog_permen, start=1):
         status = "TERSEDIA" if item["stok"] > 0 else "HABIS"
         print(f"{i}. {item['nama']} | Rp{item['harga']:,}".replace(",", ".") + f"/pcs | Stok: {item['stok']} | {status}")
+    print("0. Keluar / Batal")
 
-    idx = int(input("Pilih nomor menu: ")) - 1
-    if not (0 <= idx < len(katalog_permen)):
-        print("Nomor menu tidak valid.")
-        input("\nTekan Enter untuk lanjut...")
-        return
+    while True:
+        raw_idx = input("Pilih nomor menu: ").strip()
+        if not raw_idx:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            no_menu = int(raw_idx)
+            if no_menu == 0:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if 1 <= no_menu <= len(katalog_permen):
+                idx = no_menu - 1
+                break
+            print("Nomor menu tidak valid.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
 
     item = katalog_permen[idx]
     if item["stok"] <= 0:
@@ -410,18 +681,42 @@ def create_pelanggan():
     varians = jenis_permen.get(item["jenis"], [item["varian"]])
     for i, v in enumerate(varians, start=1):
         print(f"{i}. {v}")
-    idx_v = int(input("Pilih nomor varian rasa: ")) - 1
-    if not (0 <= idx_v < len(varians)):
-        print("Nomor varian tidak valid.")
-        input("\nTekan Enter untuk lanjut...")
-        return
+    print("0. Batal")
 
-    varian_dipilih = varians[idx_v]
-    qty = int(input("Masukkan jumlah beli: "))
-    if qty <= 0 or qty > item["stok"]:
-        print("Jumlah beli tidak valid atau melebihi stok.")
-        input("\nTekan Enter untuk lanjut...")
-        return
+    while True:
+        raw_v = input("Pilih nomor varian rasa: ").strip()
+        if not raw_v:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            no_v = int(raw_v)
+            if no_v == 0:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if 1 <= no_v <= len(varians):
+                varian_dipilih = varians[no_v - 1]
+                break
+            print("Nomor varian tidak valid.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    while True:
+        raw_qty = input(f"Masukkan jumlah beli (maks {item['stok']}, 0 untuk batal): ").strip()
+        if not raw_qty:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            qty = int(raw_qty)
+            if qty == 0:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if 1 <= qty <= item["stok"]:
+                break
+            print(f"Jumlah beli harus antara 1 sampai {item['stok']}.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
 
     shopping_list.append({
         "menu_index": idx,
@@ -441,9 +736,27 @@ def read_pelanggan():
     print("=== PELANGGAN - READ ===")
     print("1. Lihat Menu Toko Permen")
     print("2. Lihat Isi Belanjaan Saat Ini")
-    pilih = input("Pilih (1/2): ").strip()
+    print("0. Keluar / Kembali")
 
-    if pilih == "1":
+    while True:
+        raw_pilih = input("Pilih (1/2/0): ").strip()
+        if not raw_pilih:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            pilih = int(raw_pilih)
+            if pilih in (1, 2, 0):
+                break
+            print("Pilihan harus 1, 2, atau 0.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
+    if pilih == 0:
+        print("Keluar dari Read Pelanggan.")
+        input("\nTekan Enter untuk lanjut...")
+        return
+
+    if pilih == 1:
         for no, item in enumerate(katalog_permen, start=1):
             status = "TERSEDIA" if item["stok"] > 0 else "HABIS"
             print(f"\n[Menu ke-{no}]")
@@ -454,7 +767,7 @@ def read_pelanggan():
             print(f"5. Varian Rasa: {item['varian']}")
             print(f"6. Status: {status}")
 
-    elif pilih == "2":
+    elif pilih == 2:
         if not shopping_list:
             print("Shopping list masih kosong.")
         else:
@@ -468,9 +781,6 @@ def read_pelanggan():
                     f"Qty: {entry['qty']} | Subtotal: Rp{subtotal:,}".replace(",", ".")
                 )
             print("Total Belanja: Rp" + f"{total:,}".replace(",", "."))
-
-    else:
-        print("Pilihan tidak valid.")
 
     input("\nTekan Enter untuk lanjut...")
 
@@ -490,41 +800,95 @@ def update_pelanggan():
     for i, entry in enumerate(shopping_list, start=1):
         item = katalog_permen[entry["menu_index"]]
         print(f"{i}. {item['nama']} | Varian: {entry['varian']} | Qty: {entry['qty']}")
+    print("0. Keluar / Batal")
 
-    idx = int(input("Pilih nomor item belanjaan: ")) - 1
-    if not (0 <= idx < len(shopping_list)):
-        print("Nomor item tidak valid.")
-        input("\nTekan Enter untuk lanjut...")
-        return
+    while True:
+        raw_idx = input("Pilih nomor item belanjaan: ").strip()
+        if not raw_idx:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            no_item = int(raw_idx)
+            if no_item == 0:
+                print("Tindakan dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if 1 <= no_item <= len(shopping_list):
+                idx = no_item - 1
+                break
+            print("Nomor item tidak valid.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
 
     entry = shopping_list[idx]
     item = katalog_permen[entry["menu_index"]]
 
     print("1. Atur Kuantitas")
     print("2. Ubah Varian Rasa")
-    pilih = input("Pilih (1/2): ").strip()
+    print("0. Batal")
 
-    if pilih == "1":
-        qty_baru = int(input("Masukkan kuantitas baru: "))
-        if 0 < qty_baru <= item["stok"]:
-            entry["qty"] = qty_baru
-            print("Kuantitas berhasil diubah.")
-        else:
-            print("Kuantitas tidak valid atau melebihi stok.")
+    while True:
+        raw_pilih = input("Pilih (1/2/0): ").strip()
+        if not raw_pilih:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            pilih = int(raw_pilih)
+            if pilih in (1, 2, 0):
+                break
+            print("Pilihan harus 1, 2, atau 0.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
 
-    elif pilih == "2":
+    if pilih == 0:
+        print("Tindakan dibatalkan.")
+        input("\nTekan Enter untuk lanjut...")
+        return
+
+    if pilih == 1:
+        while True:
+            raw_qty = input(f"Masukkan kuantitas baru (maks {item['stok']}, 0 untuk batal): ").strip()
+            if not raw_qty:
+                print("Input tidak boleh kosong.")
+                continue
+            try:
+                qty_baru = int(raw_qty)
+                if qty_baru == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if 1 <= qty_baru <= item["stok"]:
+                    entry["qty"] = qty_baru
+                    print("Kuantitas berhasil diubah.")
+                    break
+                print(f"Kuantitas harus antara 1 sampai {item['stok']}.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
+
+    elif pilih == 2:
         varians = jenis_permen.get(item["jenis"], [item["varian"]])
         for i, v in enumerate(varians, start=1):
             print(f"{i}. {v}")
-        idx_v = int(input("Pilih nomor varian baru: ")) - 1
-        if 0 <= idx_v < len(varians):
-            entry["varian"] = varians[idx_v]
-            print("Varian rasa berhasil diubah.")
-        else:
-            print("Nomor varian tidak valid.")
+        print("0. Batal")
 
-    else:
-        print("Pilihan tidak valid.")
+        while True:
+            raw_v = input("Pilih nomor varian baru: ").strip()
+            if not raw_v:
+                print("Input tidak boleh kosong.")
+                continue
+            try:
+                no_v = int(raw_v)
+                if no_v == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if 1 <= no_v <= len(varians):
+                    entry["varian"] = varians[no_v - 1]
+                    print("Varian rasa berhasil diubah.")
+                    break
+                print("Nomor varian tidak valid.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
 
     input("\nTekan Enter untuk lanjut...")
 
@@ -543,24 +907,80 @@ def delete_pelanggan():
 
     print("1. Hapus Salah Satu Kategori Pilihan Menu Tertentu")
     print("2. Hapus Semua Belanjaan")
-    pilih = input("Pilih (1/2): ").strip()
+    print("0. Keluar / Batal")
 
-    if pilih == "1":
-        kategori = input("Masukkan nama jenis/kategori menu yang ingin dihapus (contoh: Lunak / Keras): ").strip().lower()
-        sisa = [
-            entry for entry in shopping_list
-            if katalog_permen[entry["menu_index"]]["jenis"].lower() != kategori
-        ]
-        shopping_list.clear()
-        shopping_list.extend(sisa)
-        print("Item sesuai kategori berhasil dihapus dari shopping list.")
+    while True:
+        raw_pilih = input("Pilih (1/2/0): ").strip()
+        if not raw_pilih:
+            print("Input tidak boleh kosong.")
+            continue
+        try:
+            pilih = int(raw_pilih)
+            if pilih in (1, 2, 0):
+                break
+            print("Pilihan harus 1, 2, atau 0.")
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
 
-    elif pilih == "2":
-        shopping_list.clear()
-        print("Semua belanjaan berhasil dihapus.")
+    if pilih == 0:
+        print("Tindakan dibatalkan.")
+        input("\nTekan Enter untuk lanjut...")
+        return
 
-    else:
-        print("Pilihan tidak valid.")
+    if pilih == 1:
+        daftar_kategori = []
+        for entry in shopping_list:
+            kat = katalog_permen[entry["menu_index"]]["jenis"]
+            if kat not in daftar_kategori:
+                daftar_kategori.append(kat)
+
+        for i, kat in enumerate(daftar_kategori, start=1):
+            print(f"{i}. {kat}")
+        print("0. Batal")
+
+        while True:
+            raw_kat = input("Pilih nomor kategori menu yang ingin dihapus: ").strip()
+            if not raw_kat:
+                print("Input tidak boleh kosong.")
+                continue
+            try:
+                no_kat = int(raw_kat)
+                if no_kat == 0:
+                    print("Tindakan dibatalkan.")
+                    input("\nTekan Enter untuk lanjut...")
+                    return
+                if 1 <= no_kat <= len(daftar_kategori):
+                    kategori = daftar_kategori[no_kat - 1].lower()
+                    sisa = [
+                        entry for entry in shopping_list
+                        if katalog_permen[entry["menu_index"]]["jenis"].lower() != kategori
+                    ]
+                    shopping_list.clear()
+                    shopping_list.extend(sisa)
+                    print("Item sesuai kategori berhasil dihapus dari shopping list.")
+                    break
+                print("Nomor kategori tidak valid.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
+
+    elif pilih == 2:
+        while True:
+            raw_konf = input("Ketik 1 untuk konfirmasi hapus SEMUA belanjaan atau 0 untuk batal: ").strip()
+            if not raw_konf:
+                print("Input tidak boleh kosong.")
+                continue
+            try:
+                konf = int(raw_konf)
+                if konf == 0:
+                    print("Penghapusan semua belanjaan dibatalkan.")
+                    break
+                if konf == 1:
+                    shopping_list.clear()
+                    print("Semua belanjaan berhasil dihapus.")
+                    break
+                print("Masukkan 1 atau 0.")
+            except ValueError:
+                print("Input harus berupa angka, bukan huruf.")
 
     input("\nTekan Enter untuk lanjut...")
 
@@ -603,7 +1023,26 @@ def bayar_pelanggan():
 
     print(tabel)
     print("Total yang harus dibayar: Rp" + f"{total:,}".replace(",", "."))
-    uang = int(input("Masukkan jumlah uang bayar: "))
+    print("Ketik 0 untuk batal bayar.")
+
+    while True:
+        raw_uang = input("Masukkan jumlah uang bayar: ").strip()
+        if not raw_uang:
+            print("Jumlah uang tidak boleh kosong.")
+            continue
+        try:
+            uang = int(raw_uang)
+            if uang == 0:
+                print("Pembayaran dibatalkan.")
+                input("\nTekan Enter untuk lanjut...")
+                return
+            if uang < 0:
+                print("Jumlah uang tidak boleh negatif.")
+                continue
+            break
+        except ValueError:
+            print("Input harus berupa angka, bukan huruf.")
+
     if uang < total:
         print("Uang tidak mencukupi.")
     else:
@@ -631,8 +1070,28 @@ def bayar_pelanggan():
 
 # Pelanggan Keluar
 import os
+import sys
+import inquirer
 
 def keluar_pelanggan():
     os.system("cls")
-    print("Keluar dari menu pelanggan...")
+    pilihan = [
+        inquirer.List(
+            "keluar",
+            message="Keluar Pelanggan - Pilih tujuan",
+            choices=[
+                "kembali ke pemilihan admin/pelanggan",
+                "keluar dari sistem",
+            ],
+        ),
+    ]
+    pilih = inquirer.prompt(pilihan)
+
+    if pilih["keluar"] == "keluar dari sistem":
+        os.system("cls")
+        print("Terima kasih telah berkunjung ke toko permen!")
+        sys.exit()
+
+    os.system("cls")
+    print("Kembali ke pemilihan admin/pelanggan...")
     return False
