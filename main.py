@@ -634,15 +634,16 @@ def keluar_admin():
     ]
     pilih = inquirer.prompt(pilihan)
 
+    if not pilih:
+        return False
+
     if pilih["keluar"] == "keluar dari sistem":
         os.system("cls")
         print("Terima kasih telah berkunjung ke toko permen!")
         sys.exit()
 
     os.system("cls")
-    print("Kembali ke pemilihan admin/pelanggan...")
     return False
-
 
 
 # Pelanggan Create
@@ -1094,11 +1095,13 @@ def keluar_pelanggan():
     ]
     pilih = inquirer.prompt(pilihan)
 
+    if not pilih:
+        return False
+
     if pilih["keluar"] == "keluar dari sistem":
         os.system("cls")
         print("Terima kasih telah berkunjung ke toko permen!")
         sys.exit()
 
     os.system("cls")
-    print("Kembali ke pemilihan admin/pelanggan...")
     return False
