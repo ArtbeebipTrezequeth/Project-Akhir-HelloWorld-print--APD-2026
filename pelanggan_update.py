@@ -3,9 +3,9 @@ from data_awal import jenis_permen, katalog_permen, shopping_list
 
 def update_pelanggan():
     os.system("cls")
-    print("=== PELANGGAN - UPDATE SHOPPING LIST ===")
+    print("=== PELANGGAN - KELOLA BELANJAAN ===")
     if not shopping_list:
-        print("Shopping list kosong.")
+        print("Belanjaan kosong.")
         input("\nTekan Enter untuk lanjut...")
         return
 

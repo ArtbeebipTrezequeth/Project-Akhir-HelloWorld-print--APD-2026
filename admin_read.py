@@ -3,7 +3,7 @@ from data_awal import jenis_permen, katalog_permen
 
 def read_admin():
     os.system("cls")
-    print("=== ADMIN - READ ===")
+    print("=== ADMIN - LIHAT DATA MENU ===")
     print("1. Tampilkan Seluruh Menu & Variasi")
     print("0. Keluar / Kembali")
 
@@ -21,7 +21,7 @@ def read_admin():
             print("Input harus berupa angka, bukan huruf.")
 
     if pilih == 0:
-        print("Keluar dari Read Admin.")
+        print("Keluar dari Lihat Data Menu Admin.")
         input("\nTekan Enter untuk lanjut...")
         return
 

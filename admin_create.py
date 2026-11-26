@@ -3,7 +3,7 @@ from data_awal import jenis_permen, katalog_permen
 
 def create_admin():
     os.system("cls")
-    print("=== ADMIN - CREATE ===")
+    print("=== ADMIN - TAMBAH ===")
     print("1. Tambah Menu Pilihan Baru")
     print("2. Tambah Jenis Variasi Rasa")
     print("0. Keluar / Batal")

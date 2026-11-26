@@ -71,7 +71,6 @@ shopping_list = []
 
 
 # Menu Login
-from tampilan_menu import admin, pengguna
 import os
 import inquirer
 

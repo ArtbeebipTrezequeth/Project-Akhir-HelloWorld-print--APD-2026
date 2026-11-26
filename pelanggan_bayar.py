@@ -6,7 +6,7 @@ def bayar_pelanggan():
     os.system("cls")
     print("=== PELANGGAN - BAYAR ===")
     if not shopping_list:
-        print("Shopping list masih kosong, tidak ada yang dibayar.")
+        print("Belanjaan masih kosong, tidak ada yang dibayar.")
         input("\nTekan Enter untuk lanjut...")
         return
 

@@ -21,22 +21,22 @@ def admin():
                 "aksi",
                 message="Menu Admin",
                 choices=[
-                    "create",
-                    "read",
-                    "update",
-                    "delete",
+                    "Tambah Menu",
+                    "Lihat Data Menu",
+                    "Kelola Stok",
+                    "Hapus Menu",
                     "keluar",
                 ],
             )
         ]
         pilih = inquirer.prompt(menu)
-        if pilih["aksi"] == "create":
+        if pilih["aksi"] == "Tambah Menu":
             create_admin()
-        elif pilih["aksi"] == "read":
+        elif pilih["aksi"] == "Lihat Data Menu":
             read_admin()
-        elif pilih["aksi"] == "update":
+        elif pilih["aksi"] == "Kelola Stok":
             update_admin()
-        elif pilih["aksi"] == "delete":
+        elif pilih["aksi"] == "Hapus Menu":
             delete_admin()
         elif pilih["aksi"] == "keluar":
             jalan = keluar_admin()
@@ -50,25 +50,25 @@ def pengguna():
                 "aksi",
                 message="Menu Pelanggan",
                 choices=[
-                    "create",
-                    "read",
-                    "update",
-                    "delete",
-                    "bayar",
+                    "Tambah Belanjaan",
+                    "Lihat Belanjaan",
+                    "Kelola Belanjaan",
+                    "Hapus Belanjaan",
+                    "Bayar",
                     "keluar",
                 ],
             )
         ]
         pilih = inquirer.prompt(menu)
-        if pilih["aksi"] == "create":
+        if pilih["aksi"] == "Tambah Belanjaan":
             create_pelanggan()
-        elif pilih["aksi"] == "read":
+        elif pilih["aksi"] == "Lihat Belanjaan":
             read_pelanggan()
-        elif pilih["aksi"] == "update":
+        elif pilih["aksi"] == "Kelola Belanjaan":
             update_pelanggan()
-        elif pilih["aksi"] == "delete":
+        elif pilih["aksi"] == "Hapus Belanjaan":
             delete_pelanggan()
-        elif pilih["aksi"] == "bayar":
+        elif pilih["aksi"] == "Bayar":
             bayar_pelanggan()
         elif pilih["aksi"] == "keluar":
             jalan = keluar_pelanggan()

@@ -3,9 +3,9 @@ from data_awal import katalog_permen, shopping_list
 
 def delete_pelanggan():
     os.system("cls")
-    print("=== PELANGGAN - DELETE SHOPPING LIST ===")
+    print("=== PELANGGAN - HAPUS BELANJAAN ===")
     if not shopping_list:
-        print("Shopping list kosong.")
+        print("Belanjaan kosong.")
         input("\nTekan Enter untuk lanjut...")
         return
 

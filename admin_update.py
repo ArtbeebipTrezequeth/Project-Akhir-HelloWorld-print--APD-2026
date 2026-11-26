@@ -3,7 +3,7 @@ from data_awal import katalog_permen
 
 def update_admin():
     os.system("cls")
-    print("=== ADMIN - UPDATE STOK ===")
+    print("=== ADMIN - KELOLA STOK ===")
     if not katalog_permen:
         print("Belum ada menu untuk diupdate.")
         input("\nTekan Enter untuk lanjut...")

@@ -3,7 +3,7 @@ from data_awal import jenis_permen, katalog_permen
 
 def delete_admin():
     os.system("cls")
-    print("=== ADMIN - DELETE ===")
+    print("=== ADMIN - HAPUS MENU ===")
     print("1. Hapus Salah Satu Menu")
     print("2. Hapus Salah Satu Variasi Rasa")
     print("3. Hapus Semua Menu")

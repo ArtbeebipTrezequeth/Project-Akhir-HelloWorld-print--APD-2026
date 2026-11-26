@@ -3,7 +3,7 @@ from data_awal import katalog_permen, shopping_list
 
 def read_pelanggan():
     os.system("cls")
-    print("=== PELANGGAN - READ ===")
+    print("=== PELANGGAN - LIHAT BELANJAAN ===")
     print("1. Lihat Menu Toko Permen")
     print("2. Lihat Isi Belanjaan Saat Ini")
     print("0. Keluar / Kembali")

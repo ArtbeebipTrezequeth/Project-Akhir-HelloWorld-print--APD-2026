@@ -3,7 +3,7 @@ from data_awal import jenis_permen, katalog_permen, shopping_list
 
 def create_pelanggan():
     os.system("cls")
-    print("=== PELANGGAN - CREATE (SHOPPING LIST) ===")
+    print("=== PELANGGAN - TAMBAH BELANJAAN ===")
     if not katalog_permen:
         print("Menu toko kosong.")
         input("\nTekan Enter untuk lanjut...")
